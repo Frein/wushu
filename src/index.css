@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  color: #fff;
+  padding: 10px;
+  background: rgba(0,0,0,0.8);
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 5px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.leftcol { /* Левая колонка */
+  float: left; /* Обтекание справа */
+  width: 800px; /* Ширина колонки */
+}
+.rightcol { /* Правая колонка */
+  margin-left: 810px; /* Отступ слева */
+}
