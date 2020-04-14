@@ -2,7 +2,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Чэн-ци",
             shape: "circle",
-            coords: [190, 200,5],
+            coords: [454, 256,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "Под зрачком у нижнего края орбиты глаза",
@@ -11,7 +11,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Сы-бай",
             shape: "circle",
-            coords: [200, 200,5],
+            coords: [454, 289,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "Вертикально ниже зрачка на 1цунь. Ниже точки чэн-ци на 1см.",
@@ -20,7 +20,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Цзюй-ляо",
             shape: "circle",
-            coords: [210, 200,5],
+            coords: [454, 326,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "В носогубной складке на пересечении вертикальной линии от центра зрачка и горизонтальной линии через точку жень-чжун.",
@@ -29,7 +29,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Ди-цан",
             shape: "circle",
-            coords: [220, 200,5],
+            coords: [454, 326,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "К наружи от угла рта на 1см на вертикальной линии от зрачка.",
@@ -38,7 +38,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Да-ин",
             shape: "circle",
-            coords: [230, 200,5],
+            coords: [159, 446,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "Спереди от угла нижней челюсти на1,33 цуня, несколько кнаружи от места где пальпируется пульсация артерии. ",
@@ -47,7 +47,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Цзя-чэ",
             shape: "circle",
-            coords: [240, 200,5],
+            coords: [185, 405,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "Спереди и кверху от угла нижней челюсти где пальпируется углубление.",
@@ -56,7 +56,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Ся-гуань",
             shape: "circle",
-            coords: [250, 200,5],
+            coords: [142, 346,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "кпереди от козеткам уха, во впадине, которая образуется нижнем краем скуловой кости и вырезкой нижней челюсти.",
@@ -65,7 +65,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Тоу-вэй",
             shape: "circle",
-            coords: [260, 200,5],
+            coords: [91, 240,5],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "в углу лба в волосистостой части головы на 1,5см от угла лба в сторону височной впадины или кнаружи от точки шень-тин на 4,5 цуня.",
