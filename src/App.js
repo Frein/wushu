@@ -34,7 +34,8 @@ class App extends React.Component{
     }
 
     getTipPosition(area) {
-        return { top: `${area.center[1]}px`, left: `${area.center[0]}px` };
+        debugger
+        return { top: `${area.center[1]+125}px`, left: `${area.center[0]+125}px` };
     }
 
     render() {
