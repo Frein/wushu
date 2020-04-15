@@ -61,7 +61,7 @@ class App extends React.Component{
                                      onMouseLeave={area => this.leaveArea(area)}
                                      map={this.points}/>
                         {
-                            this.state.hoveredArea &&
+                            this.state.hoveredArea && this.state.hoveredArea.shape!=='line' &&
                             <span className="tooltip"
                                   style={{ ...this.getTipPosition(this.state.hoveredArea)}}>
     		{ this.state.hoveredArea &&
