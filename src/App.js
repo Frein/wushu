@@ -1,12 +1,25 @@
 import React from 'react';
 import './App.css';
-import ImageMapper from 'react-image-mapper';
+import ImageMapper from './ImageMapper';
 import points from './map'
 
 class App extends React.Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state={};
+
+        this.points = {...points};
+
+
+
+    //     let line  = {
+    //             name: "4",
+    //             shape: "line",
+    //             //coords: this.points.areas.map(a =>a.coords.slice(0,2)).flat(),
+    //             coords: [454, 256, 454, 289, 454, 326, 454, 352, 159, 446, 185, 405, 142, 346, 91, 240]
+    //         };
+    // // debugger
+    //      this.points.areas.push(line);
     }
     moveOnImage(evt) {
         const coords = { x: evt.nativeEvent.layerX, y: evt.nativeEvent.layerY };
@@ -34,8 +47,7 @@ class App extends React.Component{
     }
 
     getTipPosition(area) {
-        debugger
-        return { top: `${area.center[1]+125}px`, left: `${area.center[0]+125}px` };
+        return { top: `${area.center[1]+50}px`, left: `${area.center[0]+125}px` };
     }
 
     render() {
@@ -47,7 +59,7 @@ class App extends React.Component{
                                      onImageMouseMove={evt => this.moveOnImage(evt)}
                                      onMouseEnter={area => this.enterArea(area)}
                                      onMouseLeave={area => this.leaveArea(area)}
-                                     map={points}/>
+                                     map={this.points}/>
                         {
                             this.state.hoveredArea &&
                             <span className="tooltip"
@@ -68,7 +80,7 @@ class App extends React.Component{
                 </div>
                 <div className='rightcol'>
                     {
-                        points.areas.map(p=><div>
+                        points.areas.map((p, i)=><div key={i}>
                             <h3>{p.name}</h3>
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>
