@@ -80,7 +80,7 @@ class App extends React.Component{
                 </div>
                 <div className='rightcol'>
                     {
-                        points.areas.map((p, i)=><div key={i}>
+                        points.areas.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
                             <h3>{p.name}</h3>
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>
