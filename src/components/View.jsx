@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import ImageMapper from './ImageMapper';
 import points from '../data/map'
+import {Link} from "react-router-dom";
 
 export default class View extends React.Component {
     constructor(props) {
@@ -49,6 +50,7 @@ export default class View extends React.Component {
     render() {
         return (
             <div>
+                <Link to='/developer'>Редактировать</Link>
                 <div className='leftcol'>
                     <div className="container">
                         <ImageMapper src='head2.jpg' width={800}
