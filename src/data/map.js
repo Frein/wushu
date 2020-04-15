@@ -2,7 +2,7 @@ export default{ name: 'Меридиан желудка', areas: [
         {
             name: "Чэн-ци",
             shape: "circle",
-            coords: [454, 256,  6],
+            coords: [454, 256, 6],
             preFillColor: "rgb(0,0,0,1)",
             lineWidth: 2,
             find: "Под зрачком у нижнего края орбиты глаза",
