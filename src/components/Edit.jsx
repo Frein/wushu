@@ -13,6 +13,7 @@ export default class Edit extends React.Component{
             currentUse: '',
             currentX:'',
             currentY:'',
+            currentSize: 6,
             points:[],
             check:false
         };
@@ -23,7 +24,7 @@ export default class Edit extends React.Component{
             return {
                 name: this.state.currentName,
                 shape: "circle",
-                coords: [this.state.currentX, this.state.currentY, 6],
+                coords: [this.state.currentX, this.state.currentY, this.state.currentSize],
                 preFillColor: color || "rgb(0,0,0,1)",
                 lineWidth: 2,
                 find: this.state.currentFind,
@@ -94,6 +95,7 @@ export default class Edit extends React.Component{
             <div className='rightcol'>
                 X: <input readOnly={true} value={this.state.currentX}/>
                  Y: <input readOnly={true} value={this.state.currentY}/>
+                 Size: <input value={this.state.currentSize} onChange={(event)=>this.setState({currentSize: event.target.value})}/>
                  <br/>
                  <input placeholder='Название точки' value={this.state.currentName} onChange={(event)=>this.setState({currentName: event.target.value})}/>
                  <br/>
