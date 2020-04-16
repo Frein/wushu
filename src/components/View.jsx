@@ -53,7 +53,7 @@ export default class View extends React.Component {
                 <Link to='/developer'>Редактировать</Link>
                 <div className='leftcol'>
                     <div className="container">
-                        <ImageMapper src='head2.jpg' width={800}
+                        <ImageMapper src='head.jpg' width={800}
                                      onImageMouseMove={evt => this.moveOnImage(evt)}
                                      onMouseEnter={area => this.enterArea(area)}
                                      onMouseLeave={area => this.leaveArea(area)}
