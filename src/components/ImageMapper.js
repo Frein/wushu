@@ -110,7 +110,6 @@ export default class ImageMapper extends Component {
 		//this.ctx.moveTo(first[0], first[1]);
 		coords.forEach((c,i) => {
 			if(i % 2 === 0 ){
-				console.log(coords[i], coords[i+1]);
 				this.ctx.lineTo(coords[i], coords[i+1])
 			}
 		});

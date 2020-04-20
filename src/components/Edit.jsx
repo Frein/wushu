@@ -67,7 +67,7 @@ export default class Edit extends React.Component{
             currentAreas.areas.push(newPoint);
 
 
-        console.log(this.state.points);
+      //  console.log(this.state.points);
         return <div>
             <div className='leftcol'>
                 <div className="container">
@@ -83,6 +83,13 @@ export default class Edit extends React.Component{
                          }
                          ));
                      }}>Экспортировать</button>
+                    <button onClick={()=>{
+                        fetch('/ping').then(response=> {
+                           return response.json()
+                        }).then((data) => {
+                            console.log(data);
+                        });
+                    }}>Экспортировать</button>
                      {this.state.url && this.state.url.match(regex) &&
                     <><ImageMapper src={this.state.url} width={800}
                                  onImageMouseMove={evt => this.moveOnImage(evt)}
