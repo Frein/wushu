@@ -86,6 +86,13 @@ export default class EditZone extends React.Component{
                      style ={{
                          width:'300px'
                      }}/>
+                    <button onClick={()=>{
+                        prompt("Copy to clipboard: Ctrl+C, Enter", JSON.stringify({
+                                zones: this.state.zones,
+                                url:this.state.url
+                            }
+                        ));
+                    }}>Экспортировать</button>
                      {this.state.url && this.state.url.match(regex) &&
                     <><ImageMapper src={this.state.url} width={800}
                                  onImageMouseMove={evt => this.moveOnImage(evt)}
