@@ -83,27 +83,20 @@ export default class Edit extends React.Component{
                          }
                          ));
                      }}>Экспортировать</button>
-                    <button onClick={()=>{
-                        fetch('/ping').then(response=> {
-                           return response.json()
-                        }).then((data) => {
-                            console.log(data);
-                        });
-                    }}>Экспортировать</button>
-                    <button onClick={()=>{
-                        fetch('/create', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({qwe:123}) // body data type must match "Content-Type" header)
-                        })
-                            .then(response=> {
-                            return response.json()})
-                        .then((data) => {
-                            console.log(data);
-                        });
-                    }}>QWE</button>
+                    {/*<button onClick={()=>{*/}
+                    {/*    fetch('/create', {*/}
+                    {/*        method: 'POST',*/}
+                    {/*        headers: {*/}
+                    {/*            'Content-Type': 'application/json'*/}
+                    {/*        },*/}
+                    {/*        body: JSON.stringify({qwe:123}) // body data type must match "Content-Type" header)*/}
+                    {/*    })*/}
+                    {/*        .then(response=> {*/}
+                    {/*        return response.json()})*/}
+                    {/*    .then((data) => {*/}
+                    {/*        console.log(data);*/}
+                    {/*    });*/}
+                    {/*}}>QWE</button>*/}
                      {this.state.url && this.state.url.match(regex) &&
                     <><ImageMapper src={this.state.url} width={800}
                                  onImageMouseMove={evt => this.moveOnImage(evt)}

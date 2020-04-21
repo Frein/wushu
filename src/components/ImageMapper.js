@@ -51,9 +51,13 @@ export default class ImageMapper extends Component {
 		);
 	}
 
-	componentDidUpdate() {
-		this.updateCacheMap();
-		this.initCanvas();
+	componentDidUpdate(prevProps) {
+		console.log('didupdate', this.props.map !== prevProps.map);
+		if(prevProps.map !== this.props.map){
+			this.updateCacheMap();
+			this.initCanvas();
+		}
+
 	}
 
 	drawrect(coords, fillColor, lineWidth, strokeColor) {
@@ -190,6 +194,22 @@ export default class ImageMapper extends Component {
 		}
 	}
 
+	imageMouseDown(event){
+		event.stopPropagation();
+		event.preventDefault();
+		if (this.props.onImageMouseDown) {
+			this.props.onImageMouseDown(event);
+		}
+	}
+
+	imageMouseUp(event){
+		event.stopPropagation();
+		event.preventDefault();
+		if (this.props.onImageMouseUp) {
+			this.props.onImageMouseUp(event);
+		}
+	}
+
 	scaleCoords(coords) {
 		const { imgWidth, width } = this.props;
 		// calculate scale based on current 'width' and the original 'imgWidth'
@@ -266,6 +286,8 @@ export default class ImageMapper extends Component {
 					ref={node => (this.img = node)}
 					onLoad={this.initCanvas}
 					onClick={this.imageClick.bind(this)}
+					onMouseDown={this.imageMouseDown.bind(this)}
+					onMouseUp={this.imageMouseUp.bind(this)}
 					onMouseMove={this.imageMouseMove.bind(this)}
 				/>
 				<canvas ref={node => (this.canvas = node)} style={this.styles.canvas} />
@@ -302,6 +324,8 @@ ImageMapper.propTypes = {
 	onMouseMove: PropTypes.func,
 	onImageClick: PropTypes.func,
 	onImageMouseMove: PropTypes.func,
+	onImageMouseUp: PropTypes.func,
+	onImageMouseDown: PropTypes.func,
 	onLoad: PropTypes.func,
 	onMouseEnter: PropTypes.func,
 	onMouseLeave: PropTypes.func,
