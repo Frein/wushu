@@ -84,7 +84,7 @@ export default class Edit extends React.Component{
                          ));
                      }}>Экспортировать</button>
                     <button onClick={()=>{
-                        fetch('/create', {
+                        fetch('/meridian/create', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
