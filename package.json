@@ -7,18 +7,19 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "body-parser": "latest",
     "express": "^4.17.1",
+    "mongoose": "^5.9.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-image-mapper": "0.0.15",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "body-parser": "latest"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node src/server/server.js",
     "build": "react-scripts build",
-    "startdev": "start nodemon server & react-scripts start",
+    "startdev": "start nodemon src/server/server.js & react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
