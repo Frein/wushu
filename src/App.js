@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Edit from "./components/Edit";
 import EditZone from "./components/EditZone";
 import View2 from "./components/View2";
+import ViewZone1 from "./components/ViewZone1";
 
 class App extends React.Component{
     render() {
@@ -16,6 +17,9 @@ class App extends React.Component{
                 </Route>
                     <Route path="/developerzone">
                         <EditZone />
+                    </Route>
+                    <Route path="/lesson2/zones">
+                        <ViewZone1 />
                     </Route>
                     <Route path="/lesson2">
                         <View2 />
