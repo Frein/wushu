@@ -2652,7 +2652,7 @@ export default {
     },
     {
         "name":" Энергетический дисбаланс в легком.",
-        "shape":"line",
+        "shape":"poly",
         "coords":[
             487,
             168,
@@ -2733,8 +2733,9 @@ export default {
             488,
             172
         ],
-        "strokeColor":"red",
+        "strokeColor":"rgb(0,0,0,1)",
         "lineWidth":2,
+        "preFillColor":"rgb(236, 23, 65)",
         "find":"",
         "use":""
     }
