@@ -1,22 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import '../App.css';
 import ImageMapper from './ImageMapper';
-import points from '../data/map'
 import {Link, useParams} from "react-router-dom";
 import dataService from "../data/dataService";
 
 function MeridianBranch() {
 
     let { id } = useParams();
-    let points1 = {...points};
 
-    let [meridianBranch, setMeridianBranch] = useState({});
-    let [selectedArea, setSelectedArea] =useState({})
+    let [state, setState] = useState({points:[],meridianBranch:{}});
+    let [selectedArea, setSelectedArea] =useState({});
+    // let [points, setPoints] = useState([]);
 
    useEffect(()=>{
-       dataService('/meridianBranch/get', {
-           meridianBranchId: id
-       }).then(data=>setMeridianBranch(data))
+       Promise.all([
+            dataService('/meridianBranch/get', {meridianBranchId: id}),
+            dataService('/point/getList', {meridianBranchId:id})])
+           .then(([meridianBranch, points])=>{
+           console.log(meridianBranch);
+           console.log(points);
+           setState({meridianBranch,points})
+       })
     },[]);
 
     const enterArea = (area) => {
@@ -35,15 +39,21 @@ function MeridianBranch() {
         return { top: `${area.center[1]+50}px`, left: `${area.center[0]+125}px` };
     };
 
-     return (
+    let map =   {
+        name: "Меридиан желудка",
+        areas: state.points.map(p=>{ return {...p, _id:undefined, meridianBranch:undefined}})
+    };
+    console.log(map);
+
+    return (
             <div>
                 <Link to='/meridians'>назад</Link>
                 <div className='leftcol'>
                     <div className="container">
-                        <ImageMapper src={`/file/get?id=${meridianBranch.file}`} width={800}
+                        <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}
                                      onMouseEnter={area => enterArea(area)}
                                      onMouseLeave={area => leaveArea(area)}
-                                     map={points1}/>
+                                     map={map}/>
                         {
                             selectedArea.hoveredArea &&selectedArea.hoveredArea.shape!=='line' &&
                             <span className="tooltip"
@@ -60,7 +70,7 @@ function MeridianBranch() {
                 </div>
                 <div className='rightcol'>
                     {
-                        points1.areas.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
+                        state.points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
                             <h3>{p.name}</h3>
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>

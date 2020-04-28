@@ -54,6 +54,7 @@ export default class ImageMapper extends Component {
 	componentDidUpdate(prevProps) {
 		console.log('didupdate', this.props.map !== prevProps.map);
 		if(prevProps.map !== this.props.map){
+
 			this.updateCacheMap();
 			this.initCanvas();
 		}

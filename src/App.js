@@ -14,9 +14,6 @@ class App extends React.Component{
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route path="/meridians">
-                        <Meridians />
-                    </Route>
                     <Route path="/meridianBranch/:id">
                         <MeridianBranch />
                     </Route>
@@ -32,8 +29,11 @@ class App extends React.Component{
                     <Route path="/lesson2">
                         <View2 />
                     </Route>
-                    <Route path="/">
+                    <Route path="/lesson1">
                         <View />
+                    </Route>
+                    <Route path="/">
+                        <Meridians />
                     </Route>
                 </Switch>
             </BrowserRouter>

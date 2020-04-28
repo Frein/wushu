@@ -7,10 +7,10 @@ module.exports = async (req, res) => {
         let meridianBranches = await MeridianBranchModel.find({meridian:mongoose.mongo.ObjectId(meridianId)});
 
         res.send( {
-            statusCode: 200,
+            statusCode: 201,
             body: meridianBranches
         })
-
+s
     } catch (err) {
         console.log(err) // output to netlify function log
         res.send( {

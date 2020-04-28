@@ -15,7 +15,7 @@ export default class View2 extends React.Component {
                     coords: this.points.areas.map(a =>a.coords.slice(0,2)).flat(),
                   //  coords: [454, 256, 454, 289, 454, 326, 454, 352, 159, 446, 185, 405, 142, 346, 91, 240]
                 };
-        // debugger
+        debugger
              this.points.areas.push(line);
     }
     moveOnImage(evt) {

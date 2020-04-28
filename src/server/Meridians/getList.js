@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         const meridians = await MeridianModel.find();
 
         res.send( {
-            statusCode: 200,
+            statusCode: 201,
             body: meridians
         })
 

@@ -36,7 +36,7 @@ export default function Meridians() {
                         <b>Ветви:</b>
                         <ul>
                         {branches.map((b, i)=> {
-                            return <li><Link key={i} to={'/MeridianBranch/'+b._id}>{b.name}</Link></li>
+                            return <li key={i}><Link key={i} to={'/MeridianBranch/'+b._id}>{b.name}</Link></li>
                         }
                         )}
                         </ul>

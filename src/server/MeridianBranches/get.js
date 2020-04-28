@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
         const meridianBranch = await MeridianBranchModel.findOne({_id:mongoose.mongo.ObjectId(meridianId)});
 
         res.send( {
-            statusCode: 200,
+            statusCode: 201,
             body: meridianBranch
         })
 
