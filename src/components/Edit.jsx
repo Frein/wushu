@@ -89,7 +89,7 @@ export default class Edit extends React.Component{
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({name:'asd', price:321}) // body data type must match "Content-Type" header)
+                            body: JSON.stringify({name:'asd', description:'zxc'}) // body data type must match "Content-Type" header)
                         })
                             .then(response=> {
                             return response.json()})

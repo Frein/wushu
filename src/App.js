@@ -6,15 +6,23 @@ import Edit from "./components/Edit";
 import EditZone from "./components/EditZone";
 import View2 from "./components/View2";
 import ViewZone1 from "./components/ViewZone1";
+import Meridians from "./components/Meridians";
+import MeridianBranch from "./components/MeridianBranch";
 
 class App extends React.Component{
     render() {
         return (
             <BrowserRouter>
                 <Switch>
+                    <Route path="/meridians">
+                        <Meridians />
+                    </Route>
+                    <Route path="/meridianBranch/:id">
+                        <MeridianBranch />
+                    </Route>
                     <Route path="/developer">
-                    <Edit />
-                </Route>
+                        <Edit />
+                    </Route>
                     <Route path="/developerzone">
                         <EditZone />
                     </Route>

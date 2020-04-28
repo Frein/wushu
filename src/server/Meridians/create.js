@@ -1,32 +1,31 @@
 const mongoose  = require('mongoose');
-const Product = require("./productModel");
+const Meridian = require("./MeridianModel");
 
 module.exports = async (req, res) => {
     try {
          const data = req.body,
-            name = data.name,
-            price = parseInt(data.price),
-            id = mongoose.Types.ObjectId(),
-            product = {
-                _id: id,
-                name,
-                price,
-                __v: 0
+            meridian = {
+                _id: mongoose.Types.ObjectId(),
+                name: data.name,
+                description: data.description,
+                maxActivityTime: data.maxActivityTime,
+                season:data.season,
+                element: data.element
             },
             response = {
                 msg: "Product successfully created",
-                data: product
-            }
+                data: meridian
+            };
 
         // Use Product.Model to create a new product
-        await Product.create(product)
+        await Meridian.create(meridian);
 
         res.send( {
             statusCode: 201,
             body: JSON.stringify(response)
         });
     } catch (err) {
-        console.log('product.create', err) // output to netlify function log
+        console.log('meridian.create', err);
         res.send( {
             statusCode: 500,
             body: JSON.stringify({msg: err.message})

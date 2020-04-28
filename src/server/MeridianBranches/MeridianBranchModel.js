@@ -1,4 +1,4 @@
-// productModel.js
+// MeridianModel.js
 const  mongoose = require('mongoose');
 
 // Set Product Schema
@@ -7,13 +7,9 @@ const schema = new mongoose.Schema({
         name: {
             type: String,
             required: [true, 'Name field is required'],
-            max: 100
         },
-        price: {
-            type: Number,
-            required: [true, 'Price field is required']
-        }
+        file: {type: mongoose.Schema.Types.ObjectId, ref: 'files'},
+        meridian: {type: mongoose.Schema.Types.ObjectId, ref: 'meridians'}
     }),
-    Product = mongoose.model('product', schema)
-
-module.exports = Product
+    MeridianBranch = mongoose.model('meridianBranches', schema);
+module.exports = MeridianBranch;
