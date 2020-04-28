@@ -4,7 +4,9 @@ const path = require('path');
 const mongoose = require('./mongooseInit')
 
 const createMeridian = require('./Meridians/create');
+const updateMeridian = require('./Meridians/update');
 const getListMeridian = require('./Meridians/getList');
+const deleteMeridian = require('./Meridians/delete');
 
 const createMeridianBranch = require('./MeridianBranches/create')
 const getListMeridianBranch = require('./MeridianBranches/getList')
@@ -27,6 +29,8 @@ app.use('/ping', function (req, res) {
 });
 
 app.post('/meridian/create', createMeridian);
+app.post('/meridian/update', updateMeridian);
+app.post('/meridian/delete', deleteMeridian);
 app.post('/meridian/list', getListMeridian);
 
 app.post('/meridianBranch/create', createMeridianBranch);

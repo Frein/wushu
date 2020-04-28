@@ -21,7 +21,7 @@ function MeridianBranch() {
            console.log(points);
            setState({meridianBranch,points})
        })
-    },[]);
+    },[id]);
 
     const enterArea = (area) => {
         setSelectedArea({
