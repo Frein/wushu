@@ -8,9 +8,11 @@ const updateMeridian = require('./Meridians/update');
 const getListMeridian = require('./Meridians/getList');
 const deleteMeridian = require('./Meridians/delete');
 
-const createMeridianBranch = require('./MeridianBranches/create')
-const getListMeridianBranch = require('./MeridianBranches/getList')
-const getMeridianBranch = require('./MeridianBranches/get')
+const createMeridianBranch = require('./MeridianBranches/create');
+const getListMeridianBranch = require('./MeridianBranches/getList');
+const getMeridianBranch = require('./MeridianBranches/get');
+const deleteMeridianBranch = require('./MeridianBranches/delete');
+const updateMeridianBranch = require('./MeridianBranches/update');
 
 const createFile = require('./Files/create');
 const getFile = require('./Files/get');
@@ -36,6 +38,8 @@ app.post('/meridian/list', getListMeridian);
 app.post('/meridianBranch/create', createMeridianBranch);
 app.post('/meridianBranch/list', getListMeridianBranch);
 app.post('/meridianBranch/get', getMeridianBranch);
+app.post('/meridianBranch/delete', deleteMeridianBranch);
+app.post('/meridianBranch/update', updateMeridianBranch);
 
 app.post('/file/create', createFile);
 app.get('/file/get', getFile);

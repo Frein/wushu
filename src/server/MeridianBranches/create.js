@@ -4,8 +4,8 @@ const Meridian = require("../Meridians/MeridianModel");
 
 module.exports = async (req, res) => {
     try {
-        let meridianId = req.body.meridianId;
-        let mer = await Meridian.findOne({_id:meridianId});
+        let meridianId = req.body.meridian;
+        let mer = await Meridian.findOne({_id:mongoose.mongo.ObjectID(meridianId)});
 
          const data = req.body;
         const meridianBranch = {

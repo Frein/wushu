@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import '../App.css';
-import ImageMapper from './ImageMapper';
+import '../../App.css';
+import ImageMapper from '../ImageMapper';
 import {Link, useParams} from "react-router-dom";
-import dataService from "../data/dataService";
+import dataService from "../../data/dataService";
 
 function MeridianBranch() {
 

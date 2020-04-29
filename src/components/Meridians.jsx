@@ -9,18 +9,27 @@ export default function Meridians() {
     const [meridianList, setMeridianList] = useState([]);
     const [selectedMeridian, setSelectedMeridian] = useState({});
     const [branches, setMeridianBranches] = useState([]);
+    const [newBranch, setNewBranch] = useState({name:''});
 
     const updateMeridianList = ()=>{
         setSelectedMeridian({})
-        dataService('/meridian/list').then((data)=>setMeridianList(data))
+        dataService('/meridian/list').then((data)=>{
+            setMeridianList(data)
+            setSelectedMeridian(data[0])
+        }
+            )
     };
+
+    const updateMeridianBranches = () => {
+        if (selectedMeridian._id !== 'new')
+            dataService('/meridianBranch/list', {id: selectedMeridian._id}).then((data) => setMeridianBranches(data))
+    }
     useEffect(() => {
         updateMeridianList()
     },[]);
 
     useEffect(() => {
-        if(selectedMeridian._id!=='new')
-            dataService('/meridianBranch/list', {id:selectedMeridian._id}).then((data)=>setMeridianBranches(data))
+        updateMeridianBranches();
     },[selectedMeridian._id]);
 
     return (
@@ -91,9 +100,32 @@ export default function Meridians() {
                     }/>}</p>
                     <div>
                         <b>Ветви:</b>
+                        {canEdit && <><input value={newBranch.name} onChange={(event)=>{
+                            setNewBranch({...newBranch, name:event.target.value})
+                        }
+                        }/><button onClick={()=>{
+                            if(newBranch.name)
+                                dataService('/MeridianBranch/create', {...newBranch, meridian:selectedMeridian._id})
+                                    .then(()=>{
+                                        updateMeridianBranches();
+                                        setNewBranch({name:''})
+                                    })
+                        }
+                        }>Добавить</button></>}
                         <ul>
                         {branches.map((b, i)=> {
-                            return <li key={i}><Link key={i} to={'/MeridianBranch/'+b._id}>{b.name}</Link></li>
+                            return <li key={i}>{!canEdit?<Link key={i} to={'/MeridianBranch/' + b._id}>{b.name}</Link>:
+                                <><input value={b.name} onChange={(event)=>{
+                                    const newBranches = [...branches];
+                                    newBranches[i].name= event.target.value;
+                                    setMeridianBranches(newBranches)
+                                }}/><button onClick={()=>{
+                                    dataService('/MeridianBranch/update', {id:b._id, data:b}).then(()=>updateMeridianBranches());
+                                }
+                                }>Сохранить</button><button onClick={()=>{
+                                    dataService('/MeridianBranch/delete', {id:b._id}).then(()=>updateMeridianBranches());
+                                }
+                                }>Удалить</button></>}</li>
                         }
                         )}
                         </ul>
