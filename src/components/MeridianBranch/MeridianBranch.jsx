@@ -6,6 +6,10 @@ import dataService from "../../data/dataService";
 
 function MeridianBranch() {
 
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let user = params.get('user');
+
     let { id } = useParams();
 
     let [state, setState] = useState({points:[],meridianBranch:{}});
@@ -47,7 +51,7 @@ function MeridianBranch() {
 
     return (
             <div>
-                <Link to='/meridians'>назад</Link>
+                <Link to={'/meridians?user='+user}>назад</Link>
                 <div className='leftcol'>
                     <div className="container">
                         <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}

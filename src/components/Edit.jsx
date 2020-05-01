@@ -7,7 +7,7 @@ export default class Edit extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            url:'https://acupuncture5element.netlify.app/body.jpg',
+            url:'https://acupuncture5element.herokuapp.com/body.jpg',
             currentName: '',
             currentFind: '',
             currentUse: '',

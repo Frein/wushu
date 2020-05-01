@@ -1,14 +1,13 @@
 const  mongoose = require('mongoose');
-const Points = require( './PointModel');
+const Files = require( './FileModel');
 
 module.exports = async (req, res) => {
     try {
-        let meridianBranchId = req.body.meridianBranch;
-        const points = await Points.find({meridianBranch:mongoose.mongo.ObjectId(meridianBranchId)});
+        const files = await Files.find();
 
         res.send( {
             statusCode: 201,
-            body: points
+            body: files
         })
 
     } catch (err) {

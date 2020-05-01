@@ -3,7 +3,7 @@ const MeridianBranchModel = require( './MeridianBranchModel');
 
 module.exports = async (req, res) => {
     try {
-        let meridianId = req.body.meridianBranchId;
+        let meridianId = req.body.id;
         const meridianBranch = await MeridianBranchModel.findOne({_id:mongoose.mongo.ObjectId(meridianId)});
 
         res.send( {

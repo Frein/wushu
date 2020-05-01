@@ -16,9 +16,10 @@ const updateMeridianBranch = require('./MeridianBranches/update');
 
 const createFile = require('./Files/create');
 const getFile = require('./Files/get');
+const getListFile = require('./Files/getList');
 
 const createPoint = require('./Points/create');
-const getPoint = require('./Points/getList');
+const getListPoint = require('./Points/getList');
 
 const app = express();
 app.use( bodyParser.json() );
@@ -43,9 +44,10 @@ app.post('/meridianBranch/update', updateMeridianBranch);
 
 app.post('/file/create', createFile);
 app.get('/file/get', getFile);
+app.post('/file/list', getListFile);
 
 app.post('/point/create', createPoint);
-app.post('/point/getList', getPoint);
+app.post('/point/list', getListPoint);
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../../build', 'index.html'));

@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 export default function Meridians() {
     let search = window.location.search;
     let params = new URLSearchParams(search);
-    let canEdit = params.get('user')==='xinxin';
+    let user = params.get('user');
+    let canEdit = user==='xinxin';
     const [meridianList, setMeridianList] = useState([]);
     const [selectedMeridian, setSelectedMeridian] = useState({});
     const [branches, setMeridianBranches] = useState([]);
@@ -23,7 +24,9 @@ export default function Meridians() {
     const updateMeridianBranches = () => {
         if (selectedMeridian._id !== 'new')
             dataService('/meridianBranch/list', {id: selectedMeridian._id}).then((data) => setMeridianBranches(data))
-    }
+    };
+
+
     useEffect(() => {
         updateMeridianList()
     },[]);
@@ -114,7 +117,7 @@ export default function Meridians() {
                         }>Добавить</button></>}
                         <ul>
                         {branches.map((b, i)=> {
-                            return <li key={i}>{!canEdit?<Link key={i} to={'/MeridianBranch/' + b._id}>{b.name}</Link>:
+                            return <li key={i}><Link key={i} to={'/MeridianBranch/' + b._id+'?user='+user}>{b.name}</Link>{canEdit&&
                                 <><input value={b.name} onChange={(event)=>{
                                     const newBranches = [...branches];
                                     newBranches[i].name= event.target.value;
