@@ -19,7 +19,7 @@ function MeridianBranch() {
    useEffect(()=>{
        Promise.all([
             dataService('/meridianBranch/get', {meridianBranchId: id}),
-            dataService('/point/getList', {meridianBranchId:id})])
+            dataService('/point/list', {meridianBranchId:id})])
            .then(([meridianBranch, points])=>{
            console.log(meridianBranch);
            console.log(points);
