@@ -18,8 +18,8 @@ function MeridianBranch() {
 
    useEffect(()=>{
        Promise.all([
-            dataService('/meridianBranch/get', {meridianBranchId: id}),
-            dataService('/point/list', {meridianBranchId:id})])
+            dataService('/meridianBranch/get', {id: id}),
+            dataService('/point/list', {meridianBranch:id})])
            .then(([meridianBranch, points])=>{
            console.log(meridianBranch);
            console.log(points);
@@ -53,7 +53,7 @@ function MeridianBranch() {
             <div>
                 <Link to={'/meridians?user='+user}>назад</Link>
                 <div className='leftcol'>
-                    <div className="container">
+                    {state.meridianBranch&&<div className="container">
                         <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}
                                      onMouseEnter={area => enterArea(area)}
                                      onMouseLeave={area => leaveArea(area)}
@@ -70,7 +70,7 @@ function MeridianBranch() {
                                 }
                             </span>
                         }
-                    </div>
+                    </div>}
                 </div>
                 <div className='rightcol'>
                     {
