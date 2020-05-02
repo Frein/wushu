@@ -117,7 +117,7 @@ export default class EditZone extends React.Component{
                         ...this.getCurrentZone(),
                             shape: "poly",
                             preFillColor: this.state.currentColor
-                        }]})
+                        }]});
                     this.clearCurrent();
                 }}>Зону добавить</button>
                 <button onClick={()=>{
@@ -132,9 +132,10 @@ export default class EditZone extends React.Component{
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>
                             <button onClick={()=>{
+                                debugger
                                 if(this.state.zones.length===1)
-                                    this.setState({points:[]})
-                                this.setState({points: [...this.state.zones.slice(0,i), ...this.state.zones.slice(i+1)]})
+                                    this.setState({zones:[]})
+                                this.setState({zones: [...this.state.zones.slice(0,i), ...this.state.zones.slice(i+1)]})
                             }}>Удалить зону</button>
                         </div>)
                     }
