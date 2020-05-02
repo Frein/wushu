@@ -30,7 +30,8 @@ export default function Edit() {
             setMeridianBranch(meridianBranch);
             setFiles(files);
             setPoints(points);
-            setSelectedFile(files.find(f=> f._id = meridianBranch.file)?? files[0])
+            debugger
+            setSelectedFile(files.find(f=> f._id === meridianBranch.file)?? files[0])
         })
     }, [id]);
 
@@ -68,20 +69,19 @@ export default function Edit() {
     if(newPoint)
         currentAreas.areas.push(newPoint);
 
-
       //  console.log(this.state.points);
         return <div>
             <div className='leftcol'>
                 <div className="container">
                     <select value={selectedFile._id} onChange={(event)=>{
-                        debugger
                         setSelectedFile(files.find(f=>f._id===event.target.value))
                     }}>
-                        {files.map(f=> <option value={f._id}>{f.name}</option>)}
+                        {files.map((f,i)=> <option key={i} value={f._id}>{f.name}</option>)}
                     </select>
-                    <ImageMapper src={`/file/get?id=${selectedFile._id}`} width={800}
+                    {selectedFile._id&& <ImageMapper src={`/file/get?id=${selectedFile._id}`} width={800}
                                  onImageClick={evt => clickedOutside(evt)}
                                  map={currentAreas} />
+                    }
                 </div>
             </div>
             {/*<div className='rightcol'>*/}
