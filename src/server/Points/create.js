@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
              lineWidth: data.lineWidth,
              find:data.find,
              use: data.use,
-             number:data.number
+             number:data.number,
+             system:data.system
          };
         const response = {
             msg: "Product successfully created",

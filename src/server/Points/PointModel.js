@@ -30,6 +30,9 @@ const schema = new mongoose.Schema({
         },
         use: {
             type: String
+        },
+        system: {
+            type: Boolean
         }
     }),
     Point = mongoose.model('points', schema)

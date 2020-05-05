@@ -43,9 +43,48 @@ function MeridianBranch() {
         return { top: `${area.center[1]+50}px`, left: `${area.center[0]+125}px` };
     };
 
+    let lines = [];
+    if(state.points.length){
+        let first=state.points[0];
+    let currentLine={
+        name: `line0`,
+        shape: 'line',
+        coords:[first.coords[0], first.coords[1]]
+    };
+
+
+    // "coords": [454, 256, 454, 289, 454, 326, 454, 352],
+    //     "meridianBranch": {
+    //     "$oid": "5ea3563e94fae0044ce3965c"
+    // },
+    // "name": "line1",
+    //     "shape": "line",
+    //     "__v": 0
+    debugger
+
+
+    state.points.forEach((p,i)=>{
+        if (i===0) return;
+        if(p.system){
+            lines.push(JSON.parse(JSON.stringify(currentLine)));
+            currentLine.coords=[];
+            lines.push({
+                name: `line${i}`,
+                shape: 'line',
+                lineDash: [5,10],
+                coords:[state.points[i-1].coords[0], state.points[i-1].coords[1],p.coords[0], p.coords[1],state.points[i+1].coords[0], state.points[i+1].coords[1]]
+            })
+        }else{
+        currentLine.coords.push(p.coords[0]);
+        currentLine.coords.push(p.coords[1]);
+        }
+    });
+
+    lines.push(currentLine)
+    }
     let map =   {
         name: "Меридиан желудка",
-        areas: state.points.map(p=>{ return {...p, _id:undefined, meridianBranch:undefined}})
+        areas: [...state.points.filter(p=>!p.system).map(p=>{ return {...p, _id:undefined, meridianBranch:undefined}}), ...lines]
     };
     console.log(map);
 
@@ -74,7 +113,7 @@ function MeridianBranch() {
                 </div>
                 <div className='rightcol' style={{"overflow":"auto", "height":"650px"}}>
                     {
-                        state.points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
+                        state.points.filter(a=> a.shape!=='line' && !a.system).map((p, i)=><div key={i}>
                             <h3>{p.name}</h3>
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>

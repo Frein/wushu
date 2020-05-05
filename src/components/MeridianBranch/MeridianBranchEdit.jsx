@@ -15,7 +15,9 @@ export default function Edit() {
             number:'',
             X:'',
             Y:'',
-            size: 6,});
+            size: 6,
+            system: false
+    });
 
     const [files, setFiles] = useState([]);
     const [selectedFile, setSelectedFile] = useState({});
@@ -64,7 +66,8 @@ export default function Edit() {
             number:'',
             X:'',
             Y:'',
-            size: 6
+            size: 6,
+            system: false
         })
     };
 
@@ -113,6 +116,12 @@ export default function Edit() {
                  <br/>
                 <input placeholder='Номер точки' value={currentPoint.number}
                        onChange={(event)=>setCurrentPoint({...currentPoint, number: +event.target.value})}/>
+                <br/>
+                <input type="checkbox"  id ='system' checked={currentPoint.system}
+                       onChange={(event)=>{
+                           setCurrentPoint({...currentPoint, system: event.target.checked})
+                       }}/>
+                <label htmlFor="system">Системная?</label>
                 <br/>
                  <textarea placeholder='Как искать' value={currentPoint.find}
                            onChange={(event)=>setCurrentPoint({...currentPoint, find: event.target.value})} />
