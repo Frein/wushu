@@ -1,24 +1,21 @@
-const MeridianBranch = require("./MeridianBranchModel");
+const Point = require("./PointModel");
 
 module.exports = async (req, res) => {
     try {
             const id = req.body.id;
-            const data = {...req.body.data};
-            delete data._id;
 
             const response = {
-                msg: "Product successfully updated",
-                data: data
+                msg: "Product successfully deleted",
             };
 
-        await MeridianBranch.findOneAndUpdate({ _id: id }, data)
+        await Point.findOneAndDelete({ _id: id })
 
         res.send( {
             statusCode: 201,
             body: JSON.stringify(response)
         });
     } catch (err) {
-        console.log('meridianBranch.create', err);
+        console.log('meridian.create', err);
         res.send( {
             statusCode: 500,
             body: JSON.stringify({msg: err.message})

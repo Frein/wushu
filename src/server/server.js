@@ -20,6 +20,7 @@ const getListFile = require('./Files/getList');
 
 const createPoint = require('./Points/create');
 const getListPoint = require('./Points/getList');
+const deletePoint = require('./Points/delete');
 
 const app = express();
 app.use( bodyParser.json() );
@@ -48,6 +49,7 @@ app.post('/file/list', getListFile);
 
 app.post('/point/create', createPoint);
 app.post('/point/list', getListPoint);
+app.post('/point/delete', deletePoint);
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../../build', 'index.html'));

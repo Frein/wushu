@@ -12,6 +12,7 @@ export default function Edit() {
             name: '',
             find: '',
             use: '',
+            number:'',
             X:'',
             Y:'',
             size: 6,});
@@ -20,6 +21,11 @@ export default function Edit() {
     const [selectedFile, setSelectedFile] = useState({});
     const [meridianBranch, setMeridianBranch] = useState({});
     const [points, setPoints] = useState([]);
+
+    const updatePointList = ()=>{
+        dataService('/point/list', {meridianBranch:id})
+            .then((data)=>setPoints(data));
+    }
 
     useEffect(()=>{
         Promise.all([
@@ -30,8 +36,10 @@ export default function Edit() {
             setMeridianBranch(meridianBranch);
             setFiles(files);
             setPoints(points);
-            debugger
-            setSelectedFile(files.find(f=> f._id === meridianBranch.file)?? files[0])
+            let file = files.find(f=> f._id === meridianBranch.file)?? files[0];
+            setSelectedFile(file)
+            if(!meridianBranch.file)
+                dataService('/meridianBranch/update', { id:meridianBranch._id, data:{...meridianBranch, file:file._id}} )
         })
     }, [id]);
 
@@ -39,6 +47,7 @@ export default function Edit() {
         if (currentPoint.X && currentPoint.Y) {
             return {
                 ...currentPoint,
+                meridianBranch:meridianBranch._id,
                 shape: "circle",
                 coords: [currentPoint.X, currentPoint.Y, currentPoint.size],
                 preFillColor: color || "rgb(0,0,0,1)",
@@ -52,29 +61,36 @@ export default function Edit() {
             name: '',
             find: '',
             use: '',
+            number:'',
             X:'',
-            Y:''
+            Y:'',
+            size: 6
         })
     };
 
     const clickedOutside = (evt) => {
         setCurrentPoint({
+            ...currentPoint,
             X: evt.nativeEvent.layerX,
             Y: evt.nativeEvent.layerY
         });
     };
 
+
     const currentAreas = {name:'test', areas:[...points]};
     const newPoint = getCurrentPoint('red');
     if(newPoint)
         currentAreas.areas.push(newPoint);
-
+    console.log(currentAreas.areas);
       //  console.log(this.state.points);
         return <div>
             <div className='leftcol'>
                 <div className="container">
                     <select value={selectedFile._id} onChange={(event)=>{
-                        setSelectedFile(files.find(f=>f._id===event.target.value))
+                        let find = files.find(f=>f._id===event.target.value);
+                        setSelectedFile(find)
+                        dataService('/meridianBranch/update', { id:meridianBranch._id, data:{...meridianBranch, file:find._id}} )
+
                     }}>
                         {files.map((f,i)=> <option key={i} value={f._id}>{f.name}</option>)}
                     </select>
@@ -84,38 +100,48 @@ export default function Edit() {
                     }
                 </div>
             </div>
-            {/*<div className='rightcol'>*/}
-            {/*    X: <input readOnly={true} value={this.state.currentX}/>*/}
-            {/*     Y: <input readOnly={true} value={this.state.currentY}/>*/}
-            {/*     Size: <input value={this.state.currentSize} onChange={(event)=>this.setState({currentSize: event.target.value})}/>*/}
-            {/*     <br/>*/}
-            {/*     <input placeholder='Название точки' value={this.state.currentName} onChange={(event)=>this.setState({currentName: event.target.value})}/>*/}
-            {/*     <br/>*/}
-            {/*     <textarea placeholder='Как искать' value={this.state.currentFind} onChange={(event)=>this.setState({currentFind: event.target.value})} />*/}
-            {/*     <br/>*/}
-            {/*     <textarea placeholder='Применение' value={this.state.currentUse} onChange={(event)=>this.setState({currentUse: event.target.value})} />*/}
-            {/*     <br/>*/}
-            {/*     <button onClick={()=>{*/}
-            {/*         this.setState({points:[...this.state.points, (this.getCurrentPoint())]})*/}
-            {/*         this.clearCurrent();*/}
-            {/*     }}>Добавить точку</button>*/}
-            {/*    <button>Очистить</button>*/}
+            <div className='rightcol'>
+                X: <input readOnly={true} value={currentPoint.X}/>
+                <br/>
+                 Y: <input readOnly={true} value={currentPoint.Y}/>
+                 <br/>
+                 Size: <input value={currentPoint.size}
+                              onChange={(event)=>setCurrentPoint({...currentPoint, size: event.target.value})}/>
+                 <br/>
+                 <input placeholder='Название точки' value={currentPoint.name}
+                        onChange={(event)=>setCurrentPoint({...currentPoint, name: event.target.value})}/>
+                 <br/>
+                <input placeholder='Номер точки' value={currentPoint.number}
+                       onChange={(event)=>setCurrentPoint({...currentPoint, number: +event.target.value})}/>
+                <br/>
+                 <textarea placeholder='Как искать' value={currentPoint.find}
+                           onChange={(event)=>setCurrentPoint({...currentPoint, find: event.target.value})} />
+                 <br/>
+                 <textarea placeholder='Применение' value={currentPoint.use}
+                           onChange={(event)=>setCurrentPoint({...currentPoint, use: event.target.value})} />
+                 <br/>
+                 <button onClick={()=>{
+                     dataService('/point/create', getCurrentPoint())
+                         .then(()=>updatePointList());
+                     clearCurrent();
+                 }}>Добавить точку</button>
+                <button onClick={()=>clearCurrent()}>Очистить</button>
 
-            {/*    <div>*/}
-            {/*    {*/}
-            {/*        this.state.points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>*/}
-            {/*            <h3>{p.name}</h3>*/}
-            {/*            <p>Как найти: {p.find}</p>*/}
-            {/*            <p>Используется при: {p.use}</p>*/}
-            {/*            <button onClick={()=>{*/}
-
-            {/*                if(this.state.points.length===1)*/}
-            {/*                    this.setState({points:[]})*/}
-            {/*                this.setState({points: [...this.state.points.slice(0,i), ...this.state.points.slice(i+1)]})*/}
-            {/*            }}>Удалить точку</button>*/}
-            {/*        </div>)*/}
-            {/*    }*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+                <div>
+                {
+                    points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
+                        <h3>{p.name}</h3>
+                        <p>Как найти: {p.find}</p>
+                        <p>Используется при: {p.use}</p>
+                        <button onClick={()=>{
+                            dataService('/point/delete/', {id:p._id}).then(()=>updatePointList())
+                            // if(this.state.points.length===1)
+                            //     this.setState({points:[]})
+                            // this.setState({points: [...this.state.points.slice(0,i), ...this.state.points.slice(i+1)]})
+                        }}>Удалить точку</button>
+                    </div>)
+                }
+                </div>
+            </div>
         </div>
 }

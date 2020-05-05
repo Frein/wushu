@@ -4,6 +4,7 @@ const File = require( './FileModel');
 module.exports = async (req, res) => {
     try {
         let id = req.query.id;
+        console.log(id);
         let file = await File.findOne({_id:mongoose.mongo.ObjectId(id)});
 
         res.contentType(file.type);

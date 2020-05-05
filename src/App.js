@@ -8,6 +8,7 @@ import View2 from "./components/View2";
 import ViewZone1 from "./components/ViewZone1";
 import Meridians from "./components/Meridians";
 import MeridianBranch from "./components/MeridianBranch";
+import ViewZone2 from "./components/ViewZone2";
 
 class App extends React.Component{
     render() {
@@ -25,6 +26,9 @@ class App extends React.Component{
                     </Route>
                     <Route path="/lesson2/zones">
                         <ViewZone1 />
+                    </Route>
+                    <Route path="/lesson5/zones">
+                        <ViewZone2 />
                     </Route>
                     <Route path="/lesson2">
                         <View2 />

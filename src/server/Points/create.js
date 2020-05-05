@@ -14,7 +14,8 @@ module.exports = async (req, res) => {
              preFillColor:data.preFillColor,
              lineWidth: data.lineWidth,
              find:data.find,
-             use: data.use
+             use: data.use,
+             number:data.number
          };
         const response = {
             msg: "Product successfully created",

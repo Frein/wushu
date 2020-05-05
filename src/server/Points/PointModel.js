@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
             type: String,
             required: [true, 'Name field is required'],
         },
+        number:{
+            type:Number
+        },
         shape: {
             type: String,
             required: [true, 'description field is required']
