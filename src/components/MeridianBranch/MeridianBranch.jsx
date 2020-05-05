@@ -72,7 +72,7 @@ function MeridianBranch() {
                         }
                     </div>}
                 </div>
-                <div className='rightcol'>
+                <div className='rightcol' style={{"overflow":"auto", "height":"650px"}}>
                     {
                         state.points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
                             <h3>{p.name}</h3>
