@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import dataService from "../data/dataService";
 import {Link} from "react-router-dom";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+
+
 
 export default function Meridians() {
     let search = window.location.search;
@@ -36,9 +42,10 @@ export default function Meridians() {
     },[selectedMeridian._id]);
 
     return (
-        <div>
-            <div className='leftcol'>
+        <Grid container spacing={3}>
+            <Grid item xs={5}>
                 <h2>Список меридианов</h2>
+
                 {canEdit && <button onClick={()=>{
                     setSelectedMeridian({
                         _id:'new',
@@ -48,14 +55,20 @@ export default function Meridians() {
                         season: "",
                         element: "",})
                 }}>Добавить меридиан</button> }
+                <List component="div">
                 {
-                    meridianList.map((m,i)=><h3 style={{cursor: 'pointer',color: selectedMeridian&& m._id === selectedMeridian._id?'blue':'black'}} key={i} onClick={()=>{
-                        setSelectedMeridian(m);
-                    }}>{m.name}</h3>
+                    meridianList.map((m,i)=>
+                        <ListItem
+                            button
+                            selected={selectedMeridian&& m._id === selectedMeridian._id}
+                            onClick={(event) => setSelectedMeridian(m)}
+
+                        >{m.name}</ListItem>
                         )
                 }
-            </div>
-            <div className='rightcol'>
+                </List>
+            </Grid>
+            <Grid item xs={7}>
 
                 {selectedMeridian._id && <>
                     {
@@ -135,8 +148,8 @@ export default function Meridians() {
                     </div>
                 </>
                 }
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 }
 

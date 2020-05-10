@@ -7,18 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        maxWidth:'95%',
+       // maxWidth:'95%',
     },
 
 }));
@@ -97,8 +94,7 @@ function MeridianBranch() {
     console.log(map);
 
     return (
-            <Grid className={classes.root}>
-                <Grid container spacing={3} >
+                <Grid container spacing={1} >
                     <Grid item xs={8} style = {{minWidth: "800px"}}>
                         {state.meridianBranch&&<div >
                             <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}
@@ -119,16 +115,16 @@ function MeridianBranch() {
                             }
                         </div>}
                     </Grid>
-                    <Grid item xs={4}>
-                        <List component="div" >
+                    <Grid item xs={4} >
+                        <List component="div">
                             {
                                 state.points.filter(a=> a.shape!=='line' && !a.system).map((p, i)=>
                                     <ListItem button key={i} onClick={()=>{
-                                        let ps = state.points;
-                                        ps[i].open = !ps[i].open;
+                                        let ps = state.points.find(point=>p._id===point._id);
+                                        ps.open = !ps.open;
                                         setState({
                                             ...state,
-                                            points:ps
+                                            points:state.points
                                         })
                                     }}>
                                         <ListItemText primary={<b>{p.name}</b>}
@@ -144,8 +140,6 @@ function MeridianBranch() {
                         </List>
                     </Grid>
                 </Grid>
-            </Grid>
-
         );
 }
  export default MeridianBranch;

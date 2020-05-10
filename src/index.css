@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-.container {
-  position: relative;
-}
-
 .tooltip {
   position: absolute;
   color: #fff;
@@ -27,10 +23,3 @@ code {
   z-index: 1000;
 }
 
-.leftcol { /* Левая колонка */
-  float: left; /* Обтекание справа */
-  width: 800px; /* Ширина колонки */
-}
-.rightcol { /* Правая колонка */
-  margin-left: 810px; /* Отступ слева */
-}
