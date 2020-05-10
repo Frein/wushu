@@ -1,11 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import '../../App.css';
 import ImageMapper from '../ImageMapper';
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import dataService from "../../data/dataService";
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        maxWidth:'95%',
+    },
+
+}));
 
 function MeridianBranch() {
-
+    const classes = useStyles();
     let search = window.location.search;
     let params = new URLSearchParams(search);
     let user = params.get('user');
@@ -40,7 +59,7 @@ function MeridianBranch() {
     };
 
     const getTipPosition = (area) => {
-        return { top: `${area.center[1]+50}px`, left: `${area.center[0]+125}px` };
+        return { top: `${area.center[1]+150}px`, left: `${area.center[0]+125}px` };
     };
 
     let lines = [];
@@ -51,17 +70,6 @@ function MeridianBranch() {
         shape: 'line',
         coords:[first.coords[0], first.coords[1]]
     };
-
-
-    // "coords": [454, 256, 454, 289, 454, 326, 454, 352],
-    //     "meridianBranch": {
-    //     "$oid": "5ea3563e94fae0044ce3965c"
-    // },
-    // "name": "line1",
-    //     "shape": "line",
-    //     "__v": 0
-    debugger
-
 
     state.points.forEach((p,i)=>{
         if (i===0) return;
@@ -89,38 +97,54 @@ function MeridianBranch() {
     console.log(map);
 
     return (
-            <div>
-                <Link to={'/meridians?user='+user}>назад</Link>
-                <div className='leftcol'>
-                    {state.meridianBranch&&<div className="container">
-                        <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}
-                                     onMouseEnter={area => enterArea(area)}
-                                     onMouseLeave={area => leaveArea(area)}
-                                     map={map}/>
-                        {
-                            selectedArea.hoveredArea &&selectedArea.hoveredArea.shape!=='line' &&
-                            <span className="tooltip"
-                                  style={{ ...getTipPosition(selectedArea.hoveredArea)}}>
-                                { selectedArea.hoveredArea &&
-                                <div style={{width:'250px'}}>
-                                    <h3>{selectedArea.hoveredArea.name}</h3>
-                                    <p>{selectedArea.hoveredArea.find}</p>
-                                </div>
-                                }
-                            </span>
-                        }
-                    </div>}
-                </div>
-                <div className='rightcol' style={{"overflow":"auto", "height":"650px"}}>
-                    {
-                        state.points.filter(a=> a.shape!=='line' && !a.system).map((p, i)=><div key={i}>
-                            <h3>{p.name}</h3>
-                            <p>Как найти: {p.find}</p>
-                            <p>Используется при: {p.use}</p>
-                        </div>)
-                    }
-                </div>
-            </div>
+            <Grid className={classes.root}>
+                <Grid container spacing={3} >
+                    <Grid item xs={8} style = {{minWidth: "800px"}}>
+                        {state.meridianBranch&&<div >
+                            <ImageMapper src={`/file/get?id=${state.meridianBranch.file}`} width={800}
+                                         onMouseEnter={area => enterArea(area)}
+                                         onMouseLeave={area => leaveArea(area)}
+                                         map={map}/>
+                            {
+                                selectedArea.hoveredArea &&selectedArea.hoveredArea.shape!=='line' &&
+                                <span className="tooltip"
+                                      style={{ ...getTipPosition(selectedArea.hoveredArea)}}>
+                                    { selectedArea.hoveredArea &&
+                                    <div style={{width:'250px'}}>
+                                        <h3>{selectedArea.hoveredArea.name}</h3>
+                                        <p>{selectedArea.hoveredArea.find}</p>
+                                    </div>
+                                    }
+                                </span>
+                            }
+                        </div>}
+                    </Grid>
+                    <Grid item xs={4}>
+                        <List component="div" >
+                            {
+                                state.points.filter(a=> a.shape!=='line' && !a.system).map((p, i)=>
+                                    <ListItem button key={i} onClick={()=>{
+                                        let ps = state.points;
+                                        ps[i].open = !ps[i].open;
+                                        setState({
+                                            ...state,
+                                            points:ps
+                                        })
+                                    }}>
+                                        <ListItemText primary={<b>{p.name}</b>}
+                                                      secondary={
+                                                          <Collapse in={p.open} timeout="auto" unmountOnExit>
+                                                              <p><b>Как найти:</b> {p.find}</p>
+                                                              <p><b>Используется при:</b> {p.use}</p></Collapse>}/>
+                                        {p.open? <ExpandLess /> : <ExpandMore />}
+
+                                    </ListItem>
+                                )
+                            }
+                        </List>
+                    </Grid>
+                </Grid>
+            </Grid>
 
         );
 }
