@@ -9,6 +9,7 @@ import EditZone from "./components/EditZone";
 import ViewZone1 from "./components/ViewZone1";
 import ViewZone2 from "./components/ViewZone2";
 import Grid from "@material-ui/core/Grid";
+import Zones from "./components/Zones";
 
 
 const useStyles = makeStyles({
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
                                 props.history.push(`/meridians`);
                                 break;
                             case 'zones':
-                                props.history.push(`/developerZone`);
+                                props.history.push(`/zones`);
                                 break;
                             default:
                                 props.history.push(`/meridians`);
@@ -60,6 +61,9 @@ const useStyles = makeStyles({
                     </Route>
                     <Route path="/developerzone">
                         <EditZone />
+                    </Route>
+                    <Route path="/zones">
+                        <Zones />
                     </Route>
                     <Route path="/lesson2/zones">
                         <ViewZone1 />
