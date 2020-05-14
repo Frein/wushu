@@ -37,6 +37,9 @@ const useStyles = makeStyles({
                                 break;
                             case 'zones':
                                 props.history.push(`/developerZone`);
+                                break;
+                            default:
+                                props.history.push(`/meridians`);
                         }
 
                     }}

@@ -3,7 +3,6 @@ import '../../App.css';
 import ImageMapper from '../ImageMapper';
 import {useParams} from "react-router-dom";
 import dataService from "../../data/dataService";
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,20 +11,9 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-       // maxWidth:'95%',
-    },
 
-}));
 
 function MeridianBranch() {
-    const classes = useStyles();
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let user = params.get('user');
-
     let { id } = useParams();
 
     let [state, setState] = useState({points:[],meridianBranch:{}});
@@ -127,7 +115,7 @@ function MeridianBranch() {
                                             points:state.points
                                         })
                                     }}>
-                                        <ListItemText primary={<b>{p.name}</b>}
+                                        <ListItemText primary={p.name}
                                                       secondary={
                                                           <Collapse in={p.open} timeout="auto" unmountOnExit>
                                                               <p><b>Как найти:</b> {p.find}</p>

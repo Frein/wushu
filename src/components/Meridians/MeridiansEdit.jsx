@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import dataService from "../data/dataService";
+import dataService from "../../data/dataService";
 import {Link} from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 
-export default function Meridians() {
+export default function MeridiansEdit() {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     let user = params.get('user');
@@ -69,7 +69,6 @@ export default function Meridians() {
                 </List>
             </Grid>
             <Grid item xs={7}>
-
                 {selectedMeridian._id && <>
                     {
                         canEdit&&<><button onClick={()=>{
