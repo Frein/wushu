@@ -99,7 +99,8 @@ export default function Edit() {
                     </select>
                     {selectedFile._id&& <ImageMapper src={`/file/get?id=${selectedFile._id}`} width={800}
                                  onImageClick={evt => clickedOutside(evt)}
-                                 map={currentAreas} />
+                                 map={currentAreas}
+                    editMode={true}/>
                     }
                 </div>
             </div>

@@ -17,7 +17,7 @@ export default class ImageMapper extends Component {
 		this.styles = {
 			container: { position: "relative" },
 			canvas: { ...absPos, pointerEvents: "none", zIndex: 2 },
-			img: { ...absPos, zIndex: 1, userSelect: "none" },
+			img: { ...absPos, zIndex: 1, userSelect: "none", cursor: props.editMode?"crosshair":"default" },
 			map: (props.onClick && { cursor: "pointer" }) || undefined
 		};
 		// Props watched for changes to trigger update

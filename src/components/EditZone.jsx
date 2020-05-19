@@ -98,7 +98,7 @@ export default class EditZone extends React.Component{
                                  onImageMouseMove={evt => this.moveOnImage(evt)}
                                    onImageMouseDown={evt => this.mouseDownOnImage(evt)}
                                    onImageMouseUp={evt => this.mouseUpOnImage(evt)}
-
+                                editMode={true}
                                  map={currentAreas} />
                     </>}
                 </div>
