@@ -27,7 +27,7 @@ function MeridianBranch() {
            .then(([meridianBranch, points])=>{
            console.log(meridianBranch);
            console.log(points);
-           setState({meridianBranch,points})
+           setState({meridianBranch,points:points.filter(p=>!p.hidden)})
        })
     },[id]);
 
