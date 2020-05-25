@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
 function MeridianBranch() {
     let { id } = useParams();
 
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let defaultPointId = params.get('point');
+
     const classes = useStyles();
     let [state, setState] = useState({points:[],meridianBranch:{}});
     let [selectedArea, setSelectedArea] =useState({});
@@ -41,7 +45,12 @@ function MeridianBranch() {
            .then(([meridianBranch, points])=>{
            // console.log(meridianBranch);
            // console.log(points);
-           setState({meridianBranch,points:points.filter(p=>!p.hidden)})
+           setState({meridianBranch,points:points.filter(p=>!p.hidden).
+               map(p=>{
+                   return{
+                       ...p,
+                        open:p._id===defaultPointId
+                   }})})
        })
     },[id]);
 

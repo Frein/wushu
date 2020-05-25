@@ -10,6 +10,7 @@ import ViewZone1 from "./components/ViewZone1";
 import ViewZone2 from "./components/ViewZone2";
 import Grid from "@material-ui/core/Grid";
 import Zones from "./components/Zones";
+import Problem from "./components/Problems/Problem";
 
 
 const useStyles = makeStyles({
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
 
  function Menu (props) {
 
-    const [nav, setNav]=useState('meridians')
+    const [nav, setNav]=useState('problems')
     const classes= useStyles();
     console.log('menu');
     return (
@@ -33,6 +34,9 @@ const useStyles = makeStyles({
                         console.log(event, newValue)
                         setNav(newValue);
                         switch (newValue) {
+                            case 'problems':
+                                props.history.push(`/problems`);
+                                break;
                             case 'meridians':
                                 props.history.push(`/meridians`);
                                 break;
@@ -40,19 +44,23 @@ const useStyles = makeStyles({
                                 props.history.push(`/zones`);
                                 break;
                             default:
-                                props.history.push(`/meridians`);
+                                props.history.push(`/problems`);
                         }
 
                     }}
                     showLabels
                     className={classes.root}
                     >
+                        <BottomNavigationAction label="Поиск по проблеме" value={'problems'} />
                         <BottomNavigationAction label="Меридианы" value={'meridians'} />
                         <BottomNavigationAction label="Зоны" value={'zones'} />
                     </BottomNavigation>
             </Grid>
             <Grid item xs={12}>
                 <Switch>
+                    <Route path="/problems">
+                        <Problem />
+                    </Route>
                     <Route path="/meridians">
                         <Meridians />
                     </Route>
@@ -72,7 +80,7 @@ const useStyles = makeStyles({
                         <ViewZone2 />
                     </Route>
                     <Route path="/">
-                        <Meridians />
+                        <Problem />
                     </Route>
                 </Switch>
             </Grid>

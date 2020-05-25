@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import '../../App.css'
 import dataService from "../../data/dataService";
 import {Link, useParams} from "react-router-dom";
-import AddProblemAutocomplete from "../common/AddProblemAutocomplete";
+import AddProblemAutocomplete from "../common/AddAutocomplete";
 import Chip from "@material-ui/core/Chip";
 import {makeStyles} from "@material-ui/styles";
 
@@ -24,7 +24,7 @@ export default function Edit() {
     let { id } = useParams();
 
     let classes = useStyles();
-    
+
     const [currentPoint, setCurrentPoint] = useState({
             name: '',
             find: '',

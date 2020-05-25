@@ -20,6 +20,7 @@ const getListFile = require('./Files/getList');
 
 const createPoint = require('./Points/create');
 const getListPoint = require('./Points/getList');
+const getListByProblem = require('./Points/getListByProblem');
 const deletePoint = require('./Points/delete');
 
 const getListIllnesses = require('./Illness/getList');
@@ -52,6 +53,7 @@ app.post('/file/list', getListFile);
 
 app.post('/point/create', createPoint);
 app.post('/point/list', getListPoint);
+app.post('/point/listByProblem', getListByProblem);
 app.post('/point/delete', deletePoint);
 
 app.post('/illness/list', getListIllnesses)
