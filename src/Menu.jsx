@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 
     const [nav, setNav]=useState('problems')
     const classes= useStyles();
-    console.log('menu');
     return (
         <Grid container spacing={3} justify='center' className={classes.root}>
                 <Grid item xs={12}>
@@ -58,7 +57,7 @@ const useStyles = makeStyles({
             </Grid>
             <Grid item xs={12}>
                 <Switch>
-                    <Route path="/problems">
+                    <Route path="/problems/:id">
                         <Problem />
                     </Route>
                     <Route path="/meridians">

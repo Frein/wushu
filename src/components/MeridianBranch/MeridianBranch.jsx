@@ -127,7 +127,7 @@ function MeridianBranch() {
                         </div>}
                     </Grid>
                     <Grid item xs={4} >
-                        <List component="div">
+                        <List component="div" style={{'overflow-y':'scroll', maxHeight:600}}>
                             {
                                 state.points.filter(a=> a.shape!=='line' && !a.system).map((p, i)=>
                                     <ListItem button key={i} onClick={()=>{
@@ -145,7 +145,7 @@ function MeridianBranch() {
                                                               <p><b>Используется при:</b> <div className={classes.root}>
                                                                   {p.illnesses.map(ill=>{
                                                                           return <Chip variant="outlined" size="small"
-                                                                                       component={Link} to={'/illness/' + ill._id}
+                                                                                       component={Link} to={'/problems/' + ill._id}
                                                                                        label={ill.name} />
                                                                       }
                                                                   )}

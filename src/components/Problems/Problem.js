@@ -10,11 +10,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import Chip from "@material-ui/core/Chip";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 export default function () {
+    let { id } = useParams();
     const [problems, setProblems] = useState([]);
     const [problem, setProblem] = useState(null);
     const [points, setPoints] = useState([]);
@@ -30,7 +31,11 @@ export default function () {
                     }
                     // a должно быть равным b
                     return 0;
-                }))
+                }));
+
+                const pr = problems.find(p=>p._id===id);
+                if(pr)
+                    setProblem(pr);
             });
     },[]);
 
