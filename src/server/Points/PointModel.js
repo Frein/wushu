@@ -31,6 +31,7 @@ const schema = new mongoose.Schema({
         use: {
             type: String
         },
+        illnesses:[{type: mongoose.Schema.Types.ObjectId, ref: 'illnesses'}],
         system: {
             type: Boolean
         }

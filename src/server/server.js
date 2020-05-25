@@ -22,6 +22,9 @@ const createPoint = require('./Points/create');
 const getListPoint = require('./Points/getList');
 const deletePoint = require('./Points/delete');
 
+const getListIllnesses = require('./Illness/getList');
+
+
 const app = express();
 app.use( bodyParser.json() );
 app.use(express.static(path.join(__dirname, '../../build')));
@@ -50,6 +53,8 @@ app.post('/file/list', getListFile);
 app.post('/point/create', createPoint);
 app.post('/point/list', getListPoint);
 app.post('/point/delete', deletePoint);
+
+app.post('/illness/list', getListIllnesses)
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../../build', 'index.html'));

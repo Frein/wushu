@@ -1,12 +1,30 @@
 const mongoose  = require('mongoose');
 const Point = require("./PointModel");
+const Illness = require("../Illness/IllnessModel");
 
 module.exports = async (req, res) => {
     try {
+        let pointId = mongoose.Types.ObjectId();
          const data = req.body;
 
-         const point = {
-            _id: mongoose.Types.ObjectId(),
+         let problems=[];
+        for (let problem of data.problems){
+            if(problem._id){
+                problems.push(problem);
+                continue;
+            }
+
+            problem={
+              ...problem,
+                _id: mongoose.Types.ObjectId(),
+                points:[pointId]
+            };
+            await Illness.create(problem);
+            problems.push(problem);
+        }
+
+        const point = {
+            _id: pointId,
              meridianBranch: mongoose.Types.ObjectId(data.meridianBranch),
              name: data.name,
              shape: data.shape,
@@ -16,8 +34,11 @@ module.exports = async (req, res) => {
              find:data.find,
              use: data.use,
              number:data.number,
-             system:data.system
+             system:data.system,
+             illnesses:problems.map(p=>p._id)
          };
+
+
         const response = {
             msg: "Product successfully created",
             data: point

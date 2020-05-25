@@ -1,15 +1,14 @@
 const  mongoose = require('mongoose');
-const Points = require( './PointModel');
+const Illness = require( './IllnessModel');
 
 module.exports = async (req, res) => {
     try {
-        let meridianBranchId = req.body.meridianBranch;
-        const points = await Points.find({meridianBranch:mongoose.mongo.ObjectId(meridianBranchId)},null, {sort:{number:1}})
-            .populate('illnesses');
+        // let meridianBranchId = req.body.meridianBranch;
+        const illnesses = await Illness.find();
 
         res.send( {
             statusCode: 201,
-            body: points
+            body: illnesses
         })
 
     } catch (err) {

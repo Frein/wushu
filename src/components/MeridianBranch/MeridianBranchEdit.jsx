@@ -2,12 +2,29 @@ import ImageMapper from "../ImageMapper";
 import React, {useEffect, useState} from "react";
 import '../../App.css'
 import dataService from "../../data/dataService";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import AddProblemAutocomplete from "../common/AddProblemAutocomplete";
+import Chip from "@material-ui/core/Chip";
+import {makeStyles} from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        '& > *': {
+            margin: 1,
+            cursor:'pointer'
+        },
+
+    },
+}));
 
 export default function Edit() {
-
     let { id } = useParams();
 
+    let classes = useStyles();
+    
     const [currentPoint, setCurrentPoint] = useState({
             name: '',
             find: '',
@@ -16,13 +33,15 @@ export default function Edit() {
             X:'',
             Y:'',
             size: 6,
-            system: false
+            system: false,
+            problems:[]
     });
 
     const [files, setFiles] = useState([]);
     const [selectedFile, setSelectedFile] = useState({});
     const [meridianBranch, setMeridianBranch] = useState({});
     const [points, setPoints] = useState([]);
+    const [problems, setProblems] = useState([]);
 
     const updatePointList = ()=>{
         dataService('/point/list', {meridianBranch:id})
@@ -33,13 +52,15 @@ export default function Edit() {
         Promise.all([
         dataService('/meridianBranch/get', {id: id}),
         dataService('/file/list'),
-        dataService('/point/list', {meridianBranch:id})
-        ]).then(([meridianBranch, files, points])=>{
+        dataService('/point/list', {meridianBranch:id}),
+            dataService('/illness/list')
+        ]).then(([meridianBranch, files, points, problems])=>{
             setMeridianBranch(meridianBranch);
             setFiles(files);
             setPoints(points);
             let file = files.find(f=> f._id === meridianBranch.file)?? files[0];
-            setSelectedFile(file)
+            setSelectedFile(file);
+            setProblems(problems);
             if(!meridianBranch.file)
                 dataService('/meridianBranch/update', { id:meridianBranch._id, data:{...meridianBranch, file:file._id}} )
         })
@@ -67,7 +88,8 @@ export default function Edit() {
             X:'',
             Y:'',
             size: 6,
-            system: false
+            system: false,
+            problems:[]
         })
     };
 
@@ -84,7 +106,7 @@ export default function Edit() {
     const newPoint = getCurrentPoint('red');
     if(newPoint)
         currentAreas.areas.push(newPoint);
-    console.log(currentAreas.areas);
+    // console.log(currentAreas.areas);
       //  console.log(this.state.points);
         return <div>
             <div className='leftcol'>
@@ -130,9 +152,12 @@ export default function Edit() {
                  <textarea placeholder='Применение' value={currentPoint.use}
                            onChange={(event)=>setCurrentPoint({...currentPoint, use: event.target.value})} />
                  <br/>
-                 <button onClick={()=>{
-                     dataService('/point/create', getCurrentPoint())
-                         .then(()=>updatePointList());
+                 <AddProblemAutocomplete problems={problems} value={currentPoint.problems}
+                                         onChange={(ps)=>setCurrentPoint({...currentPoint, problems: ps})} />
+                <br/>
+                 <button onClick={async ()=>{
+                     await dataService('/point/create', getCurrentPoint())
+                     updatePointList();
                      clearCurrent();
                  }}>Добавить точку</button>
                 <button onClick={()=>clearCurrent()}>Очистить</button>
@@ -142,7 +167,16 @@ export default function Edit() {
                     points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
                         <h3>{p.name}</h3>
                         <p>Как найти: {p.find}</p>
-                        <p>Используется при: {p.use}</p>
+                        <p><b>Используется при:</b> <div className={classes.root}>
+                            {p.illnesses.map(ill=>{
+                                    return <Chip variant="outlined" size="small"
+                                                 component={Link} to={'/illness/' + ill._id}
+                                                 label={ill.name} />
+                                }
+                            )}
+                        </div>
+                            {/*{p.use}*/}
+                        </p>
                         <button onClick={()=>{
                             dataService('/point/delete/', {id:p._id}).then(()=>updatePointList())
                             // if(this.state.points.length===1)

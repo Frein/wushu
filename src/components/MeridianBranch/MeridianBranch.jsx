@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../../App.css';
 import ImageMapper from '../ImageMapper';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import dataService from "../../data/dataService";
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
@@ -10,12 +10,26 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Chip from "@material-ui/core/Chip";
+import {makeStyles} from "@material-ui/styles";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        '& > *': {
+            margin: 1,
+            cursor:'pointer'
+        },
 
+    },
+}));
 
 function MeridianBranch() {
     let { id } = useParams();
 
+    const classes = useStyles();
     let [state, setState] = useState({points:[],meridianBranch:{}});
     let [selectedArea, setSelectedArea] =useState({});
     // let [points, setPoints] = useState([]);
@@ -25,8 +39,8 @@ function MeridianBranch() {
             dataService('/meridianBranch/get', {id: id}),
             dataService('/point/list', {meridianBranch:id})])
            .then(([meridianBranch, points])=>{
-           console.log(meridianBranch);
-           console.log(points);
+           // console.log(meridianBranch);
+           // console.log(points);
            setState({meridianBranch,points:points.filter(p=>!p.hidden)})
        })
     },[id]);
@@ -119,7 +133,18 @@ function MeridianBranch() {
                                                       secondary={
                                                           <Collapse in={p.open} timeout="auto" unmountOnExit>
                                                               <p><b>Как найти:</b> {p.find}</p>
-                                                              <p><b>Используется при:</b> {p.use}</p></Collapse>}/>
+                                                              <p><b>Используется при:</b> <div className={classes.root}>
+                                                                  {p.illnesses.map(ill=>{
+                                                                          return <Chip variant="outlined" size="small"
+                                                                                       component={Link} to={'/illness/' + ill._id}
+                                                                                       label={ill.name} />
+                                                                      }
+                                                                  )}
+                                                              </div>
+                                                                  {/*{p.use}*/}
+                                                              </p>
+
+                                                          </Collapse>}/>
                                         {p.open? <ExpandLess /> : <ExpandMore />}
 
                                     </ListItem>
