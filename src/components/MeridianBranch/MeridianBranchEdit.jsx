@@ -60,7 +60,16 @@ export default function Edit() {
             setPoints(points);
             let file = files.find(f=> f._id === meridianBranch.file)?? files[0];
             setSelectedFile(file);
-            setProblems(problems);
+            setProblems(problems.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+                // a должно быть равным b
+                return 0;
+            }));
             if(!meridianBranch.file)
                 dataService('/meridianBranch/update', { id:meridianBranch._id, data:{...meridianBranch, file:file._id}} )
         })
