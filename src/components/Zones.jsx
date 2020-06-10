@@ -21,5 +21,10 @@ export default function Zones() {
             component={Link} to='/lesson7/zones'>
             <ListItemText primary='Зоны запястий'/>
         </ListItem>
+        <ListItem
+            button
+            component={Link} to='/lesson9/zones'>
+            <ListItemText primary='Зоны позвоночника'/>
+        </ListItem>
     </List>)
 }

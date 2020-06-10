@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Zones from "./components/Zones";
 import Problem from "./components/Problems/Problem";
 import ViewZone3 from "./components/ViewZone3";
+import ViewZone4 from "./components/ViewZone4";
 
 
 const useStyles = makeStyles({
@@ -81,6 +82,9 @@ const useStyles = makeStyles({
                     </Route>
                     <Route path="/lesson7/zones">
                         <ViewZone3 />
+                    </Route>
+                    <Route path="/lesson9/zones">
+                        <ViewZone4 />
                     </Route>
                     <Route path="/">
                         <Problem />
