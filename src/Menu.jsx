@@ -13,6 +13,7 @@ import Zones from "./components/Zones";
 import Problem from "./components/Problems/Problem";
 import ViewZone3 from "./components/ViewZone3";
 import ViewZone4 from "./components/ViewZone4";
+import ViewZone5 from "./components/ViewZone5";
 
 
 const useStyles = makeStyles({
@@ -85,6 +86,9 @@ const useStyles = makeStyles({
                     </Route>
                     <Route path="/lesson9/zones">
                         <ViewZone4 />
+                    </Route>
+                    <Route path="/lesson11/zones">
+                        <ViewZone5 />
                     </Route>
                     <Route path="/">
                         <Problem />
