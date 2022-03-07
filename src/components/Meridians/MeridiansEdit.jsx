@@ -5,14 +5,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-
-
+import CookieParser from "../../utils/CookieParser";
 
 export default function MeridiansEdit() {
     let search = window.location.search;
     let params = new URLSearchParams(search);
     let user = params.get('user');
-    let canEdit = user==='xinxin';
+    // let canEdit = user==='xinxin';
+    let canEdit = CookieParser.getUser()?.role === 'admin';
     const [meridianList, setMeridianList] = useState([]);
     const [selectedMeridian, setSelectedMeridian] = useState({});
     const [branches, setMeridianBranches] = useState([]);
