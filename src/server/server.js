@@ -46,7 +46,8 @@ app.use( bodyParser.json() );
 app.use(express.static(path.join(__dirname, '../../build')));
 app.use(cookieSession({
   name: 'session',
-  secret: process.env.SESSION_SECRET,
+  secret: 'OMGSecret42',
+  // secret: process.env.SESSION_SECRET,
   httpOnly: false,
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
