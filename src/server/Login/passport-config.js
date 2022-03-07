@@ -9,8 +9,8 @@ function initialize(passport, getUserByName, getUserById) {
 		// const user = Users.find({ name: /^name/ })
 		// const user = Users.find({ name: new RegExp(`^${name}`) })
 		// const user = await getUserByName(name)
-		console.log('name', name)
-		console.log('password', password)
+		// console.log('name', name)
+		// console.log('password', password)
 
 		return getUserByName(name)
 			.then(async user => {

@@ -32,8 +32,6 @@ function Menu(props) {
     const [passwordValue, setPasswordValue] = useState('');
     const classes= useStyles();
 
-    console.log(CookieParser.getUser())
-
     const handleOpenUserMenu = (event) => {
      setAnchorElUser(event.currentTarget);
     };
@@ -42,22 +40,15 @@ function Menu(props) {
      setAnchorElUser(null);
     };
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = () => {
         dataService('/login', {
             name: nameValue,
             password: passwordValue
         })
-          .then(() => {
-              const sessionCookie = CookieParser.getCookie('session')
-              console.log('sessionCookie', sessionCookie)
-              // console.log('decoded sessionCookie', atob(sessionCookie))
-          })
-          .catch(console.log)
     }
 
     const handleLogout = (e) => {
         dataService('/logout')
-          // .then(res => console.log(res))
           .catch(console.log)
     }
 
@@ -167,7 +158,6 @@ function Menu(props) {
                     <BottomNavigation
                       value={nav}
                       onChange={(event, newValue) => {
-                          // console.log(event, newValue)
                           setNav(newValue);
                           switch (newValue) {
                               case 'problems':

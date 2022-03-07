@@ -1,6 +1,6 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     require('dotenv').config()
+// }
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,6 +9,8 @@ const passport = require('passport');
 const Users = require('./Users/UserModel');
 const initializePassport = require('./Login/passport-config');
 const cookieSession = require('cookie-session');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const createMeridian = require('./Meridians/create');
 const updateMeridian = require('./Meridians/update');
@@ -42,8 +44,14 @@ initializePassport(
 );
 
 const app = express();
+app.use(cookieParser())
 app.use( bodyParser.json() );
-app.use(express.static(path.join(__dirname, '../../build')));
+// app.use(session({
+//   secret: 'OMGSecret42',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { httpOnly: false }
+// }))
 app.use(cookieSession({
   name: 'session',
   secret: 'OMGSecret42',
@@ -51,6 +59,9 @@ app.use(cookieSession({
   httpOnly: false,
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
+// app.use(session())
+app.use(express.static(path.join(__dirname, '../../build')));
+
 app.use(passport.initialize());
 app.use(passport.session())
 
@@ -61,9 +72,15 @@ app.use('/ping', function (req, res) {
 
 // TODO перенести в отдельный файл
 app.post('/login', (req, res, next) => {
-  console.log('Inside POST /login callback')
+  console.log('inside /login')
   passport.authenticate('local', (err, user, info) => {
-    req.login(user, (err) => {
+    console.log('inside auth')
+
+    if (err) { throw new Error(err)}
+
+    // req.login(user, (err) => {
+    req.logIn(user, (err) => {
+      console.log('inside login')
       if (err) { console.error(err) }
       req.session.user = {
         name: user.name,
@@ -75,6 +92,37 @@ app.post('/login', (req, res, next) => {
     })
   })(req, res, next);
 })
+// app.post('/login', (req, res, next) => {
+//   console.log('inside /login')
+//   try {
+//     passport.authenticate('local', {
+//       failureRedirect: '/hue'
+//     },(err, user, info) => {
+//       console.log('inside auth')
+//
+//       // if (err) { throw new Error(err)}
+//
+//       req.login(user, (err) => {
+//         console.log('inside login')
+//         if (err) { console.error(err) }
+//         req.session.user = {
+//           name: user.name,
+//           role: user.role
+//         }
+//
+//         // res.redirect('/')
+//         res.end()
+//       })
+//     });
+//   } catch (err) {
+//     console.error('auth err', err)
+//   }
+// })
+
+// app.post(
+//   '/login',
+//   passport.authenticate('local', { failureRedirect: '/hue' }),
+// )
 
 app.post('/logout',(req,res)=>
 {
@@ -111,7 +159,7 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../../build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080);
+app.listen(8080);
 
 // TODO используй проверку
 function checkAuthenticated(req, res, next) {
