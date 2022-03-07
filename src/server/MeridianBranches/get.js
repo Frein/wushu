@@ -1,4 +1,4 @@
-const  mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const MeridianBranchModel = require( './MeridianBranchModel');
 
 module.exports = async (req, res) => {

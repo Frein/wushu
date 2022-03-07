@@ -8,11 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import Chip from "@material-ui/core/Chip";
+// import Collapse from "@material-ui/core/Collapse";
+// import Chip from "@material-ui/core/Chip";
 import {Link, useParams} from "react-router-dom";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+// import ExpandLess from "@material-ui/icons/ExpandLess";
+// import ExpandMore from "@material-ui/icons/ExpandMore";
 
 export default function () {
     let { id } = useParams();

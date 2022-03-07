@@ -19,11 +19,13 @@ export default function Meridians() {
 
     useEffect(() => {
         setSelectedMeridian({});
-        dataService('/meridian/list').then((data)=>{
-                setMeridianList(data);
-                setSelectedMeridian(data[0])
-            }
-        )
+        dataService('/meridian/list')
+          .then((data)=>{
+            console.log('meridians', data)
+            setMeridianList(data);
+            setSelectedMeridian(data[0])
+          })
+          .catch(console.error)
     },[]);
 
     useEffect(() => {
@@ -42,6 +44,7 @@ export default function Meridians() {
                     {
                         meridianList.map((m,i)=>
                             <ListItem
+                                key={`ListItem${i}`}
                                 button
                                 selected={selectedMeridian&& m._id === selectedMeridian._id}
                                 onClick={(event) => setSelectedMeridian(m)}
@@ -63,6 +66,7 @@ export default function Meridians() {
                             <Typography variant="h6" component="h3">Ветви</Typography>
                             {branchesLoading?<CircularProgress />:branches.map((b, i)=> {
                                         return <ListItem
+                                            key={`AnotherListItem${i}`}
                                             button
                                             component={Link} to={'/MeridianBranch/' + b._id}>
                                             <ListItemText primary={b.name}/>

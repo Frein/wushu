@@ -7,9 +7,9 @@ export default function (url, data) {
         }})
         .then(response=> response.json())
         .then(res => {
-            if(res.statusCode !== 201)
-                throw new Error(res.msg);
-            else {
+            if (res.statusCode !== 201) {
+                throw new Error(res.msg)
+            } else {
                 return res.body;
             }
         })
