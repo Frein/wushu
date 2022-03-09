@@ -7,10 +7,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
 const Users = require('./Users/UserModel');
+// const Users = require('mongoose').model('users');
 const initializePassport = require('./Login/passport-config');
 const cookieSession = require('cookie-session');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
+// const session = require('express-session');
+// const cookieParser = require('cookie-parser');
 
 const createMeridian = require('./Meridians/create');
 const updateMeridian = require('./Meridians/update');
@@ -37,14 +38,51 @@ const getListIllnesses = require('./Illness/getList');
 // const createUser = require('./Users/create');
 // const getLogin = require('./Login/get')
 
+const usersMock = {
+  admin: {
+    id: '621c122bc858873704723d5e',
+    name: "admin",
+    hashedPassword: "$2b$10$LqXaKVaXYjGcfapb0/f3pegoQhjjv1cKcITtgykcyeukRkhl8eQnG",
+    role: "admin"
+  }
+}
+
+// Users.findOne({ name: 'admin' }, (err, user) => {
+//   console.log('Users find test', user)
+//   if (err) { console.error(err) }
+// })
+// Users.find().exec().then(res => {  })
+
 initializePassport(
   passport,
-  name => Users.findOne({ name }),
-  id => Users.findById(id)
+  // name => Users.findOne({ name }).exec(),
+  // async name => await Users.findOne({ name }).exec(),
+  // name => {
+  //   console.log('start getUserByName ', name)
+  //   return Users.findOne({ name })
+  //     .then(res => {
+  //       console.log('getUserByName ', res)
+  //       return res
+  //     })
+  //     .catch(console.log)
+  // },
+  name => Promise.resolve(usersMock[name]),
+  // id => Users.findById(id).exec()
+  // async id => await Users.findById(id).exec()
+  // id => {
+  //   console.log('start getUserById ', id)
+  //   return Users.findById(id)
+  //     .then(res => {
+  //       console.log('getUserById ', res)
+  //       return res
+  //     })
+  //     .catch(console.log)
+  // }
+  id => Promise.resolve(usersMock.admin)
 );
 
 const app = express();
-app.use(cookieParser())
+// app.use(cookieParser('OMGSecret42'))
 app.use( bodyParser.json() );
 // app.use(session({
 //   secret: 'OMGSecret42',
@@ -63,7 +101,7 @@ app.use(cookieSession({
 app.use(express.static(path.join(__dirname, '../../build')));
 
 app.use(passport.initialize());
-app.use(passport.session())
+// app.use(passport.session())
 
 
 app.use('/ping', function (req, res) {
@@ -73,7 +111,8 @@ app.use('/ping', function (req, res) {
 // TODO перенести в отдельный файл
 app.post('/login', (req, res, next) => {
   console.log('inside /login')
-  passport.authenticate('local', (err, user, info) => {
+  // console.log(passport)
+  passport.authenticate('local', {}, (err, user, info) => {
     console.log('inside auth')
 
     if (err) { throw new Error(err)}
@@ -121,7 +160,7 @@ app.post('/login', (req, res, next) => {
 
 // app.post(
 //   '/login',
-//   passport.authenticate('local', { failureRedirect: '/hue' }),
+//   passport.authenticate('local'),
 // )
 
 app.post('/logout',(req,res)=>

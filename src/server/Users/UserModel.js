@@ -16,11 +16,11 @@ const scheme = new mongoose.Schema({
 	}
 });
 
-const User = mongoose.model('users', scheme);
+const Users = mongoose.model('users', scheme);
 
-User.findOne({ role: 'admin' }, (err, docs) => {
+Users.findOne({ role: 'admin' }, (err, docs) => {
 	if (docs === null) {
-		User.create({
+		Users.create({
 			_id: mongoose.Types.ObjectId(),
 			name: 'admin',
 			hashedPassword: '$2b$10$LqXaKVaXYjGcfapb0/f3pegoQhjjv1cKcITtgykcyeukRkhl8eQnG',
@@ -29,4 +29,4 @@ User.findOne({ role: 'admin' }, (err, docs) => {
 	}
 })
 
-module.exports = User;
+module.exports = Users;
