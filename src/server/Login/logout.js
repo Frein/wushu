@@ -1,10 +1,11 @@
 module.exports = (req, res)=>
 {
 	req.session.user = null;
-	// console.log('logout', JSON.stringify(req.session))
 	req.logOut();
-
-	// console.log('logout', JSON.stringify(req.session))
-	// res.send('Thank you! Visit again');
+	res.status(201)
+	res.send({
+		statusCode: 201,
+		body: { msg: 'success' }
+	})
 	res.end()
 }

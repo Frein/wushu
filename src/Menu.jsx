@@ -40,7 +40,8 @@ function Menu(props) {
      setAnchorElUser(null);
     };
 
-    const handleLoginSubmit = () => {
+    const handleLoginSubmit = (e) => {
+        e.preventDefault()
         dataService('/login', {
             name: nameValue,
             password: passwordValue
