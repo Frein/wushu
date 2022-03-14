@@ -64,7 +64,7 @@ function Menu(props) {
         const user = CookieParser.getUser()
         return <Container>
             {
-                user
+                (user && user.name)
                   ? <Box>
                       {user.name}
                       <Button
