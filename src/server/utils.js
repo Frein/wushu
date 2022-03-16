@@ -3,6 +3,8 @@ const mongoose  = require('mongoose');
 const Point = require("./Points/PointModel");
 const Illness = require("./Illness/IllnessModel");
 
+// TODO проверить используется где то этот файл или нет, сделать нормальный module.exports
+
 function removeLastPoint(str) {
     if(str[str.length-1]==='.')
         return str.substring(0, str.length - 1);
@@ -65,4 +67,18 @@ function removeLastPoint(str) {
     // });
 })();
 
+function checkAuthenticated(req, res, next) {
+    // console.log('!', req.isAuthenticated)
+    if (req.isAuthenticated()) {
+        return next()
+    }
 
+    res.redirect('/')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        res.redirect('/')
+    }
+    return next()
+}
