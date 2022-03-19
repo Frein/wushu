@@ -21,7 +21,7 @@ export default function Meridians() {
         setSelectedMeridian({});
         dataService('/meridian/list')
           .then((data)=>{
-            console.log('meridians', data)
+            // console.log('meridians', data)
             setMeridianList(data);
             setSelectedMeridian(data[0])
           })

@@ -132,7 +132,7 @@ export default class EditZone extends React.Component{
                             <p>Как найти: {p.find}</p>
                             <p>Используется при: {p.use}</p>
                             <button onClick={()=>{
-                                debugger
+                                // debugger
                                 if(this.state.zones.length===1)
                                     this.setState({zones:[]})
                                 this.setState({zones: [...this.state.zones.slice(0,i), ...this.state.zones.slice(i+1)]})

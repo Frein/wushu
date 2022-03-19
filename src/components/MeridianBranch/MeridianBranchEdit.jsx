@@ -176,16 +176,16 @@ export default function Edit() {
                     points.filter(a=> a.shape!=='line').map((p, i)=><div key={i}>
                         <h3>{p.name}</h3>
                         <p>Как найти: {p.find}</p>
-                        <p><b>Используется при:</b> <div className={classes.root}>
-                            {p.illnesses.map(ill=>{
-                                    return <Chip variant="outlined" size="small"
+                        <div><p><b>Используется при:</b></p> <div className={classes.root}>
+                            {p.illnesses.map((ill, i)=>{
+                                    return <Chip variant="outlined" size="small" key={`IllnessChip${i}`}
                                                  component={Link} to={'/illness/' + ill._id}
                                                  label={ill.name} />
                                 }
                             )}
                         </div>
                             {/*{p.use}*/}
-                        </p>
+                        </div>
                         <button onClick={()=>{
                             dataService('/point/delete/', {id:p._id}).then(()=>updatePointList())
                             // if(this.state.points.length===1)
