@@ -1,5 +1,4 @@
 const mongoose  = require('mongoose')
-const {reject} = require("bcrypt/promises");
 
 module.exports = () => {
   // Initialize connection to database
